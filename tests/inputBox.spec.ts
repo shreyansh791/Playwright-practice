@@ -23,10 +23,27 @@ test('handling dropdown using select', async ({ page }) => {
     await page.waitForTimeout(3000);
     await page.locator('#Skills').selectOption({label:'C++'});
     await page.waitForTimeout(3000);
+    await page.locator('#Skills').selectOption('C');
+    await page.waitForTimeout(3000);
+    await page.selectOption('#Skills','HTML'); // this also works
+    await page.waitForTimeout(3000);
+    // we can use value as well instead of label, but label is preferred because label refers to visible text
   
-    const allText = await page.locator('#Skills').textContent();
-  log("allText using textContent() ", allText);
-  
+    // const allText = await page.locator('#Skills').textContent();
+  // log("allText using textContent() ", allText);
+// check presence of specific option in the dropdown.
+
+const dropdowns = await page.locator('#Skills').textContent()
+await expect(dropdowns.includes('HTML')).toBeTruthy();
+
+  //  Assertions
+  const options = await page.locator('#Skills option')
+  console.log("options.count. ", options);
+  await expect(options).toHaveCount(78);
+  // second approach 
+
+  const options2 = await page.$$('#Skills option')
+  await expect(options2.length).toBe(78);
 });
 
 
