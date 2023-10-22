@@ -25,4 +25,20 @@ const isVisible = await page.locator("h3:has-text('adidas original')").isVisible
 expect(isVisible).toBeTruthy();
 await page.getByRole('button',{name:'Checkout'}).click();
 await page.getByPlaceholder('Select Country').pressSequentially('India',{ delay: 100 })
+await page.locator('section.ta-results button').last().waitFor();
+const allOptions = page.locator('section.ta-results button');
+console.log("allOptions.count() ",await allOptions.count());
+for(let i =0; i<await allOptions.count();i++)
+{
+    console.log("TEXT IS ",await allOptions.nth(i).textContent());
+    if((await allOptions.nth(i).textContent()).trim() === 'India')
+    {
+        await allOptions.nth(i).locator('i').click();
+        break;
+    }
+   await expect(page.locator('div.user__name label')).toContainText('ansh1ika@gmail.com')
+
+
+
+}
 });

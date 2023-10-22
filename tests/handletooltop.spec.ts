@@ -12,5 +12,6 @@ test('Handle Tool Tip', async ({ page }) => {
   const toolTipText = await page.locator('nb-tooltip').textContent()
     await expect(toolTipText).toEqual('This is a tooltip')
    await expect(toolTipText).toContain('This is a tooltip');
+   await expect(toolTipText).toContainText('');
 
 });
