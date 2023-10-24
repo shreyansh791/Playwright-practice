@@ -11,7 +11,23 @@ page.on('dialog',dialog => {
 })
 
 await page.getByRole('table').locator('tr',{hasText:"mdo@gmail.com"})
-  .locator('.nb-trash').click()
-
+  .locator('.nb-trash').click();
 
 });
+
+  //  second Test
+  // By default, dialogs are auto-dismissed by Playwright, so you don't have to handle them. However, you can register a dialog handler before the action that triggers the dialog to either dialog.accept() or dialog.dismiss() it.
+test('Handle Alert second test', async ({ page }) => {
+  await page.goto('https://rahulshettyacademy.com/AutomationPractice/');
+
+  page.on('dialog', dialog =>{
+    console.log(dialog.message());
+    // dialog.defaultValue()
+    dialog.accept();
+  })
+  await page.locator('#alertbtn').click();
+  await page.locator('#confirmbtn').click();
+  
+  
+});
+
